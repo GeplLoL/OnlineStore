@@ -162,12 +162,12 @@ Testing ensures that the application meets functional and non-functional require
 
 /Github
 
- SolomikovPod                # Frontend (Blazor Web App)
-    pages                   # UI Pages
-    services                # API Service Layer
- OnlineStoreApi              # Backend (ASP.NET Core Web API)
-   controllers             # Request Handling Logic
-   models                  # Database Schemas
+SolomikovPod.                # Frontend (Blazor Web App)
+    pages.                   # UI Pages
+    services.                # API Service Layer
+OnlineStoreApi.              # Backend (ASP.NET Core Web API)
+   controllers.             # Request Handling Logic
+   models.                  # Database Schemas
 
 ---
 
