@@ -161,12 +161,12 @@ Testing ensures that the application meets functional and non-functional require
 ### Directory Structure
 
 /Github
-SolomikovPod
-    pages
-    services
-OnlineStoreApi
-   controllers
-   models
+- SolomikovPod
+    - pages
+    - services
+- OnlineStoreApi
+   - controllers
+   - models
    
 ---
 
