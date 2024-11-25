@@ -1,202 +1,219 @@
-Online Store Project
-Overview
+# Online Store Project
 
+## Overview
 The Online Store project is a user-friendly website enabling users to:
+- View products
+- Add items to their cart
+- Place orders
+- Manage their account
 
-    View products
-    Add items to their cart
-    Place orders
-    Manage their account
+### Team Members
+- Artur Šuškevitš
+- Denis Goryunov
+- Oleksandr Bohatyrov
 
-Team Members
+---
 
-    Artur Šuškevitš
-    Denis Goryunov
-    Oleksandr Bohatyrov
+## Table of Contents
+1. [Idea and Requirements Analysis](#idea-and-requirements-analysis)
+2. [Technical Analysis and Evaluation](#technical-analysis-and-evaluation)
+3. [Planning and Design](#planning-and-design)
+4. [Development](#development)
+5. [Testing](#testing)
+6. [Code Review](#code-review)
+7. [Core Functions](#core-functions)
+8. [Technology Stack](#technology-stack)
+9. [Project Architecture](#project-architecture)
+10. [Data Models](#data-models)
+11. [Testing on Production Environment](#testing-on-production-environment)
+12. [Release](#release)
 
-Table of Contents
+---
 
-    Idea and Requirements Analysis
-    Technical Analysis and Evaluation
-    Planning and Design
-    Development
-    Testing
-    Code Review
-    Core Functions
-    Technology Stack
-    Project Architecture
-    Data Models
-    Testing on Production Environment
-    Release
+## Idea and Requirements Analysis
+- Build an online store with robust functionality.
+- Provide a convenient, user-friendly interface for purchasing a variety of products.
+- Develop a scalable system capable of handling high traffic loads.
 
-Idea and Requirements Analysis
+---
 
-    Build an online store with robust functionality.
-    Provide a convenient, user-friendly interface for purchasing a variety of products.
-    Develop a scalable system capable of handling high traffic loads.
+## Technical Analysis and Evaluation
 
-Technical Analysis and Evaluation
-Backend
+### Backend
+- ASP.NET Core Web API (C#)
+- Entity Framework (Embedded database)
 
-    ASP.NET Core Web API (C#)
-    Entity Framework (Embedded database)
+### Frontend
+- Blazor Web App
+- RESTful API
+- Version control with GitHub
 
-Frontend
+---
 
-    Blazor Web App
-    RESTful API
-    Version control with GitHub
+## Planning and Design
+- Utilize Blazor for internal styling and create custom designs using Figma.
 
-Planning and Design
+### Task Management
+- Manage tasks, roles, and Scrum meetings using JIRA.
 
-    Utilize Blazor for internal styling and create custom designs using Figma.
+---
 
-Task Management
+## Development
+- Code hosted and managed on GitHub.
+- Regular commits with meaningful messages.
+- Maintain clean, readable code with clear comments.
 
-    Manage tasks, roles, and Scrum meetings using JIRA.
+---
 
-Development
+## Testing
+Testing ensures that the application meets functional and non-functional requirements across different environments.
 
-    Code hosted and managed on GitHub.
-    Regular commits with meaningful messages.
-    Maintain clean, readable code with clear comments.
+---
 
-Testing
+## Code Review
 
-Testing will ensure the application meets functional and non-functional requirements across different environments.
-Code Review
-General Feedback
+### General Feedback
+1. **Repeated Logic**:
+   - Duplicated logic exists across `CartsController` and `PaymentController`.
+   - **Recommendation**: Extract shared functionality (e.g., retrieving a cart with its items) into a common service or private method.
 
-    Repeated Logic:
-        Duplicated logic exists across CartsController and PaymentController.
-        Recommendation: Extract shared functionality (e.g., retrieving a cart with its items) into a common service or private method.
+2. **Logging**:
+   - Logging is missing for error handling.
+   - **Recommendation**: Use `ILogger` to track key events and issues.
 
-    Logging:
-        Logging is missing for error handling.
-        Recommendation: Use ILogger to track key events and issues.
+3. **Security Issues**:
+   - Passwords are stored without encryption. Use libraries like `Identity` or `BCrypt`.
+   - No validation for user permissions to access sensitive resources.
 
-    Security Issues:
-        Passwords are stored without encryption. Use libraries like Identity or BCrypt.
-        No validation for user permissions to access sensitive resources.
+4. **Error Handling**:
+   - Missing global exception handling middleware for unexpected issues.
 
-    Error Handling:
-        Missing global exception handling middleware for unexpected issues.
+---
 
-Controller-Specific Feedback
-CartsController
+### Controller-Specific Feedback
 
-Positive Aspects:
+#### CartsController
+**Positive Aspects**:
+- Proper use of `Include` and `ThenInclude` to handle nested entities.
+- Good checks for empty cart and stock availability.
 
-    Proper use of Include and ThenInclude to handle nested entities.
-    Good checks for empty cart and stock availability.
+**Recommendations**:
+1. Use transactions for critical operations like stock updates during checkout.
+2. Extract repeated logic (e.g., retrieving carts) into private methods.
+3. Add validation annotations to DTOs like `CartItemDto`.
 
-Recommendations:
+#### PaymentController
+**Positive Aspects**:
+- Validates stock availability during checkout.
 
-    Use transactions for critical operations like stock updates during checkout.
-    Extract repeated logic (e.g., retrieving carts) into private methods.
-    Add validation annotations to DTOs like CartItemDto.
+**Recommendations**:
+1. Remove inappropriate placeholders (e.g., `"denis loh suka"`).
+2. Consolidate overlapping logic with `CartsController` into a shared service.
+3. Replace string-based responses with structured objects for better readability.
 
-PaymentController
+#### ProductsController
+**Positive Aspects**:
+- Implements standard CRUD operations effectively.
+- Validates product existence with `ProductExists`.
 
-Positive Aspects:
+**Recommendations**:
+1. Add `ModelState` validation before saving data.
+2. Ensure consistent error handling across all methods.
 
-    Validates stock availability during checkout.
+#### UsersController
+**Positive Aspects**:
+- Implements basic user registration and login checks.
+- Passwords are hashed before storage.
 
-Recommendations:
+**Recommendations**:
+1. Replace outdated password hashing (e.g., SHA256 without a salt) with secure libraries like `BCrypt`.
+2. Avoid returning sensitive user data. Instead, return tokens or minimal information.
+3. Move password-related logic into a separate service for better maintainability.
 
-    Remove inappropriate placeholders (e.g., "denis loh suka").
-    Consolidate overlapping logic with CartsController into a shared service.
-    Replace string-based responses with structured objects for better readability.
+---
 
-ProductsController
+## Core Functions
+- Add products to the cart.
+- Update and delete products.
+- User registration and login.
+- Password hashing.
 
-Positive Aspects:
+---
 
-    Implements standard CRUD operations effectively.
-    Validates product existence with ProductExists.
+## Technology Stack
 
-Recommendations:
+### Frontend
+- Blazor Web App
+- JSON (for API communication)
 
-    Add ModelState validation before saving data.
-    Ensure consistent error handling across all methods.
+### Backend
+- RESTful API (client interaction)
+- ASP.NET Core Web API (C#)
+- Entity Framework (embedded database)
 
-UsersController
+### Tools
+- Git (version control)
 
-Positive Aspects:
+---
 
-    Implements basic user registration and login checks.
-    Passwords are hashed before storage.
+## Project Architecture
 
-Recommendations:
-
-    Replace outdated password hashing (e.g., SHA256 without a salt) with secure libraries like BCrypt.
-    Avoid returning sensitive user data. Instead, return tokens or minimal information.
-    Move password-related logic into a separate service for better maintainability.
-
-Core Functions
-
-    Add products to the cart.
-    Update and delete products.
-    User registration and login.
-    Password hashing.
-
-Technology Stack
-Frontend
-
-    Blazor Web App
-    JSON (for API communication)
-
-Backend
-
-    RESTful API (client interaction)
-    ASP.NET Core Web API (C#)
-    Entity Framework (embedded database)
-
-Tools
-
-    Git (version control)
-
-Project Architecture
-Directory Structure
+### Directory Structure
 
 /Github
-├─── /SolomikovPod # Frontend sources (Blazor Web App)
-│   ├─── /pages # Pages
-│   ├─── /services # API services
-├─── /OnlineStoreApi # Backend sources (ASP.NET Core Web API)
-    ├─── /controllers # Request handling logic
-    ├─── /models # Database schemas
+│
+├─── / SolomikovPod # Frontend sources (Blazor Web App)
+│ │ ├─── /pages # Pages
+│ │ ├ ├─── /services # Services for working with the API
+│
+├─── /OnlineStoreApi # Backend sources (ASP.NET Core Web API C#)
+│ ├──── /controllers # Request processing logic
+│ ├──── /models # Database schemas
 
-Data Models
-Cart
-Field	Type
-Id	int
-UserId	int
-Items	List<CartItem>
-CartItem
-Field	Type
-Id	int
-ProductId	int
-Quantity	int
-CartId	int
-Product
-Field	Type
-Id	int
-Name	string
-Description	string
-Price	decimal
-Stock	int
-Currency	string
-User
-Field	Type
-Id	int
-Username	string
-PasswordHash	string
-Email	string
-Testing on Production Environment
+---
 
+## Data Models
+
+### Cart
+| Field     | Type   |
+|-----------|--------|
+| Id        | int    |
+| UserId    | int    |
+| Items     | List<CartItem> |
+
+### CartItem
+| Field      | Type |
+|------------|------|
+| Id         | int  |
+| ProductId  | int  |
+| Quantity   | int  |
+| CartId     | int  |
+
+### Product
+| Field       | Type    |
+|-------------|---------|
+| Id          | int     |
+| Name        | string  |
+| Description | string  |
+| Price       | decimal |
+| Stock       | int     |
+| Currency    | string  |
+
+### User
+| Field         | Type    |
+|---------------|---------|
+| Id            | int     |
+| Username      | string  |
+| PasswordHash  | string  |
+| Email         | string  |
+
+---
+
+## Testing on Production Environment
 Pre-release testing will be performed in a production-like environment to ensure quality and performance.
-Release
 
-    Release Date: 25.11.2024
-    Deliverables will include the complete project, ready for deployment.
+---
+
+## Release
+- **Release Date**: 25.11.2024
+- Deliverables will include the complete project, ready for deployment.
