@@ -68,6 +68,21 @@ The Online Store project is a user-friendly website enabling users to:
 ## Testing
 Testing ensures that the application meets functional and non-functional requirements across different environments.
 
+- SolomikovPod Online Store - Menu Button Functionality:
+
+- Should navigate to Home page when clicking Home buttonpassed
+
+- Should navigate to Products page when clicking Products buttonpassed 
+
+- Should navigate to Register page when clicking Register buttonpassed 
+
+- Should navigate to Login page when clicking Login buttonpassed 
+
+- Should navigate to Cart page after login when clicking Cart buttonpassed 
+
+- Should logout user and redirect to login page when clicking Logout button
+
+
 ---
 
 ## Code Review
