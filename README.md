@@ -161,14 +161,14 @@ Testing ensures that the application meets functional and non-functional require
 ### Directory Structure
 
 /Github
-│
-├─── / SolomikovPod # Frontend sources (Blazor Web App)
-│ │ ├─── /pages # Pages
-│ │ ├ ├─── /services # Services for working with the API
-│
-├─── /OnlineStoreApi # Backend sources (ASP.NET Core Web API C#)
-│ ├──── /controllers # Request processing logic
-│ ├──── /models # Database schemas
+|
+├── SolomikovPod                # Frontend (Blazor Web App)
+│   ├── pages                   # UI Pages
+│   └── services                # API Service Layer
+|
+├── OnlineStoreApi              # Backend (ASP.NET Core Web API)
+    ├── controllers             # Request Handling Logic
+    └── models                  # Database Schemas
 
 ---
 
